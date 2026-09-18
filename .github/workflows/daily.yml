@@ -1,16 +1,37 @@
-bellhaven-crm
-├── .github
-│   └── workflows
-│       └── daily.yml
-├── data
-├── .venv
-├── app.py
-├── apply_changes.py
-├── crm_client.py
-├── duplicates.py
-├── matcher.py
-├── proposals.py
-├── run_pipeline.py
-├── scraper.py
-├── requirements.txt
-└── .gitignore
+name: Daily Bellhaven CRM Reconciliation
+
+on:
+  schedule:
+    - cron: "0 12 * * *"
+
+  workflow_dispatch:
+
+jobs:
+  reconcile:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run reconciliation pipeline
+        env:
+          CRM_API_TOKEN: ${{ secrets.CRM_API_TOKEN }}
+        run: python run_pipeline.py
+
+      - name: Upload reconciliation artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: bellhaven-reconciliation
+          path: |
+            data/website_communities.csv
+            data/proposals.json
+            data/duplicate_candidates.json
