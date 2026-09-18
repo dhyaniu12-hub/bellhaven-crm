@@ -1,0 +1,16 @@
+bellhaven-crm
+├── .github
+│   └── workflows
+│       └── daily.yml
+├── data
+├── .venv
+├── app.py
+├── apply_changes.py
+├── crm_client.py
+├── duplicates.py
+├── matcher.py
+├── proposals.py
+├── run_pipeline.py
+├── scraper.py
+├── requirements.txt
+└── .gitignore

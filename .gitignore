@@ -1,0 +1,15 @@
+.venv/
+__pycache__/
+*.pyc
+
+.env
+.streamlit/secrets.toml
+
+data/review_decisions.json
+data/writeback_log.json
+
+.DS_Store
+.vscode/
+.idea/
+diagnose.py
+zip_diagnose.py
